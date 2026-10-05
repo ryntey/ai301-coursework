@@ -53,6 +53,9 @@ only one run occurred. **The last score in your list must match the agreement li
 `eval-run.txt` you committed** — that file is the record of your final run.]
 
 
+I no longer have the exact command history, but my score progression was like this:
+16/20 16/20, 16/20.., 17/20, 17/20, 17/20..., fixed Claude connection-- 19/20
+
 
 
 **Issue analysis**
@@ -61,10 +64,22 @@ only one run occurred. **The last score in your list must match the agreement li
 issues are not scored). State your rubric's decision, the gold label, and the
 reasoning that produced your rubric's result.]
 
+  issue-12: reject
+
+item      gold    verdict  agree  note
+issue-12  reject  reject   yes
+
+The required ai-policy check caused it to fail. Issue 12 has an outright ban on it, so that's an automatic rejection. 
+
 **Check rationale**
 
 [One check from the `rubric.md` uploaded to `tools/issue-select/`, quoted as it is
 currently written, with the reasoning behind its current form.]
+
+| gfi-label | Issue labels | Has a "good first issue", "help wanted", or "easy" label | preferred |
+Reasoning: Originally, this was how this check was formatted:
+| right-fit | tags | Has a "good first issue" tag | preferred |
+ , and I asked for Claude's help to make it more thorough and the above is the result. The new version covered more bases. 
 
 **Trade-offs**
 
@@ -73,7 +88,7 @@ result it changes, a canary you re-ran with `--only`, a case you accept it will 
 stated reason nothing changed elsewhere. "Nothing changed, and here is how I know" earns
 the point in full when the reason follows.]
 
-
+Issue 13 doesn't have any comments, but is still claimed via the repo facts instead. Since I've fixed Claude and am now passing the checks with a 19/20, I am accepting that it is a case I will miss.
 
 ---
 
