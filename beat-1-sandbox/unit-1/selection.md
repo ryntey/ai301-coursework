@@ -103,7 +103,7 @@ This is also the basis for the claim comment you write in Unit 2.
 [Answer all three:
 
 1. The issue's fit to your interests and to the time available.
-I specifically stated that I wanted an issue to The other accepted issue was #75, a docs and config edit, and specifically didn't have much to do with python. I considered it because it seems like an easier fix, however for my goal of wanting to refresh my skills, the issue I chose is best. 
+I specifically stated that I wanted an issue to challenge me enough to provide some sort of practice. The other accepted issue was #75, a docs and config edit, and specifically didn't have much to do with python. I considered it because it seems like an easier fix, however for my goal, the issue I chose is best. 
 2. What the verdict identified correctly, and what you weighed that the rubric could
    not.
 The verdict correctly identified everything about the fit pretty well, in its explanation it explained that this issue wasn't a super extensive fix, but still offered me a good place to start with practice. However, I couldn't be sure if the rubric underestimated my abilities. I did want to take it slow, but did want to simultaneously offer myself enough of a challenge. In that I had to use my own judgement in not picking the low hanging fruit. Even then, the tool did still consider the idea that I wasn't completely new to things, which I was impressed with. 
