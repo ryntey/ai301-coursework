@@ -30,13 +30,14 @@ rubric rather than about the issues: revise it and re-run — retries are unlimi
 partial re-run costs about $0.20 — or run the skill on different candidates. Output
 recording `reject` for the issue you chose earns no credit for this field.
 
+Output:
 Ran 3 shell commands
 
 I graded the three issues against your rubric. Two pass and one fails.
 
 Accepted, best fit first. 
 
-#64: Relevance storer "partial overlap" test fixture has full overlap. This is the best match for your profile. It's a small Python/pytest fix: change the test's query so it only partly overlaps the chunk, then rerun pytest tests/unit/test_relevance_scorer•py. That's a good way to get back into Python and testing without much risk. It has a good first issue label.
+#64: Relevance storer "partial overlap" test fixture has full overlap. This is the best match for your profile. It's a small Python/pytest fix: change the test's query so it only partly overlaps the chunk, then rerun pytest tests/unit/test_relevance_scorer.py. That's a good way to get back into Python and testing without much risk. It has a good first issue label.
 
 ```
 
