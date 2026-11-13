@@ -23,6 +23,7 @@ ryntey
 permalink. **Then paste the text of that comment underneath the link** — the pasted text is
 what this field is graded on, so copy across what you actually posted.]]
 (https://github.com/codepath/pathreview-ai301-fa26-howard/issues/75#issuecomment-6845260501)
+
 From my reproduction (fresh clone at commit 99673c7, following the
 README's Quick Start exactly; macOS 15.3.1, Python 3.11.1)
 
@@ -107,10 +108,7 @@ so no test changes are expected.
 
 **Branch**
 
-[The name of the branch you built the change on, exactly as it appears in your fork. The
-naming shape is a type prefix, then the issue number, then a short description. **The issue
-number in the branch name must be the number of the issue you claimed** — a name carrying
-any other number does not satisfy this field.]
+fix/75-env-example-openrouter-key
 
 **Evidence**
 **Before (main):**
@@ -148,28 +146,193 @@ fields.
 
 **Run history**
 
-[The agreement score of each run you did, in order. A single run is a complete answer if
-only one run occurred. **The last score in your list must match the agreement line in the
-`eval-run.txt` you committed** — that file is the record of your final run.]
+Run history: 
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+MacBook-Pro-98:ai301-unit3-starter laurynallotey$ mkdir -p ~/.claude/skills/plan-check && cp -R "$(git rev-parse --show-toplevel)/skill/." ~/.claude/skills/plan-check/
+MacBook-Pro-98:ai301-unit3-starter laurynallotey$ ls -R ~/.claude/skills/plan-check
+SKILL.md        procedure.md    references      rubric.md       scope.md        voice-guide.md
+
+/Users/laurynallotey/.claude/skills/plan-check/references:
+evidence-guide.md
+MacBook-Pro-98:ai301-unit3-starter laurynallotey$ cp ../skill/rubric.md ~/.claude/skills/repro-check/rubric.md
+cp ../skill/references/evidence-guide.md ~/.claude/skills/repro-check/references/evidence-guide.mdcp: ../skill/rubric.md: No such file or directory
+MacBook-Pro-98:ai301-unit3-starter laurynallotey$ cp ../skill/references/evidence-guide.md ~/.claude/skills/repro-check/references/evidence-guide.md
+cp: ../skill/references/evidence-guide.md: No such file or directory
+MacBook-Pro-98:ai301-unit3-starter laurynallotey$ cd /Users/laurynallotey/Documents/GitHub/ai301-unit2-starter/eval
+MacBook-Pro-98:eval laurynallotey$ python3 run_eval.py --rubric ~/.claude/skills/repro-check/rubric.md --evidence ~/.claude/skills/repro-check/references/evidence-guide.md
+grading 20 package(s) with rubric.md + evidence-guide.md, model sonnet, 5 worker(s)...
+  pkg-04: reject
+  pkg-02: reject
+  pkg-03: accept
+  pkg-01: accept
+  pkg-05: accept
+  pkg-07: accept
+  pkg-08: reject
+  pkg-06: reject
+  pkg-10: reject
+  pkg-09: reject
+  pkg-11: accept
+  pkg-12: accept
+  pkg-14: reject
+  pkg-13: reject
+  pkg-15: reject
+  pkg-17: reject
+  pkg-19: reject
+  pkg-16: reject
+  pkg-20: accept
+  pkg-18: reject
+
+item    gold    verdict  agree  note
+pkg-01  accept  accept   yes    
+pkg-02  reject  reject   yes    
+pkg-03  accept  accept   yes    
+pkg-04  reject  reject   yes    
+pkg-05  accept  accept   yes    
+pkg-06  reject  reject   yes    
+pkg-07  accept  accept   yes    
+pkg-08  reject  reject   yes    
+pkg-09  accept  reject   NO     failed: behavior-matches
+pkg-10  accept  reject   NO     failed: behavior-matches
+pkg-11  accept  accept   yes    
+pkg-12  accept  accept   yes    
+pkg-13  reject  reject   yes    
+pkg-14  reject  reject   yes    
+pkg-15  reject  reject   yes    
+pkg-16  reject  reject   yes    
+pkg-17  reject  reject   yes    
+pkg-18  reject  reject   yes    
+pkg-19  reject  reject   yes    
+pkg-20  reject  accept   NO     graded accept
+
+categories: clear-accept 6/8  disclosure 0/1  no-evidence 4/4  unfollowable-comms 3/3  wrong-target 4/4
+agreement: 17/20 scored items  (bar: 18/20: below the bar; category floor unmet: no match in disclosure)
+MacBook-Pro-98:eval laurynallotey$ run_eval.py --rubric ~/.claude/skills/repro-check/rubric.md --evidence ~/.claude/skills/repro-check/references/evidence-guide.md --only pkg-09, pkg-10, pkg-20
+bash: run_eval.py: command not found
+MacBook-Pro-98:eval laurynallotey$ run_eval.py --rubric ~/.claude/skills/repro-check/rubric.md --evidence ~/.claude/skills/repro-check/references/evidence-guide.md --only pkg-09 pkg-10 pkg-20
+bash: run_eval.py: command not found
+MacBook-Pro-98:eval laurynallotey$ run_eval.py --rubric ~/.claude/skills/repro-check/rubric.md --evidence ~/.claude/skills/repro-check/references/evidence-guide.md --only pkg-09 pkg-10 pkg-20
+bash: run_eval.py: command not found
+MacBook-Pro-98:eval laurynallotey$ cp ~/Downloads/rubric.md ~/.claude/skills/plan-check/rubric.md
+cp ~/Downloads/procedure.md ~/.claude/skills/plan-check/procedure.md
+cp ~/Downloads/evidence-guide.md ~/.claude/skills/plan-check/references/evidence-guide.md
+cp ~/.claude/skills/repro-check/voice-guide.md ~/.claude/skills/plan-check/voice-guide.mdMacBook-Pro-98:eval laurynallotey$ cp ~/Downloads/procedure.md ~/.claude/skills/pcheck/procedure.md
+MacBook-Pro-98:eval laurynallotey$ cp ~/Downloads/evidence-guide.md ~/.claude/skills/plan-check/references/evidence-guide.md
+MacBook-Pro-98:eval laurynallotey$ cp ~/.claude/skills/repro-check/voice-guide.md ~/.claude/skills/plan-check/voice-guide.md
+MacBook-Pro-98:eval laurynallotey$ cd ~/Documents/GitHub/ai301-unit3-starter/eval
+python3 run_eval.py --rubric ~/.claude/skills/plan-check/rubric.md \
+  --evidence ~/.claude/skills/plan-check/references/evidence-guide.md \
+  --save-runMacBook-Pro-98:eval laurynallotey$ python3 run_eval.py --rubric ~/.claude-check/rubric.md \
+>   --evidence ~/.claude/skills/plan-check/references/evidence-guide.md \
+>   --save-run eval-run.txt
+grading 20 package(s) with rubric.md + evidence-guide.md + procedure.md, model sonnet, 5 worker(s)...
+  pkg-05: accept
+  pkg-03: accept
+  pkg-02: accept
+  pkg-01: reject
+  pkg-04: reject
+  pkg-06: reject
+  pkg-07: reject
+  pkg-08: accept
+  pkg-10: reject
+  pkg-09: accept
+  pkg-12: reject
+  pkg-11: reject
+  pkg-13: accept
+  pkg-15: reject
+  pkg-14: accept
+  pkg-17: reject
+  pkg-16: reject
+  pkg-18: reject
+  pkg-19: reject
+  pkg-20: reject
+
+item    category           gold    verdict  agree  note
+pkg-01  wrong-cause        reject  reject   yes    
+pkg-02  clear-accept       accept  accept   yes    
+pkg-03  clear-accept       accept  accept   yes    
+pkg-04  thread-convention  reject  reject   yes    
+pkg-05  clear-accept       accept  accept   yes    
+pkg-06  scope-creep        reject  reject   yes    
+pkg-07  wrong-cause        reject  reject   yes    
+pkg-08  clear-accept       accept  accept   yes    
+pkg-09  clear-accept       accept  accept   yes    
+pkg-10  unbuildable        reject  reject   yes    
+pkg-11  wrong-cause        reject  reject   yes    
+pkg-12  scope-creep        reject  reject   yes    
+pkg-13  clear-accept       accept  accept   yes    
+pkg-14  clear-accept       accept  accept   yes    
+pkg-15  scope-creep        reject  reject   yes    
+pkg-16  wrong-cause        reject  reject   yes    
+pkg-17  unbuildable        reject  reject   yes    
+pkg-18  unbuildable        reject  reject   yes    
+pkg-19  scope-creep        reject  reject   yes    
+pkg-20  thread-convention  reject  reject   yes    
+
+categories: clear-accept 7/7  scope-creep 4/4  thread-convention 2/2  unbuildable 3/3  wrong-cause 4/4
+agreement: 20/20 scored items  (bar: 18/20: PASS)
+run written to eval-run.txt
+
 
 **Package analysis**
 
-[Pick one scored package (`pkg-01` through `pkg-20` — the four `calib-` packages are never
-scored). Name it by id, say what your rubric decided and what the gold label said, and
-explain why your rubric read it that way.]
+[pkg-20 (ghostty-org/ghostty#11261). My rubric decided reject; the gold
+label is reject, so they agree.
+
+This is the hardest reject in the set, because the plan itself is
+strong. My rubric passed it on diagnosis-grounded (the no-hyperlink
+control passes, which fits the stale-`prev` cause), scope-bounded
+(unconditional recompute and other cached pointers are explicitly out
+of scope), executable (one chosen approach: a page generation counter
+checked in Terminal.print), test-decisive (both fuzz cases as
+regression tests, control unchanged), and comms-thread-aware (the
+comment says "My plan follows the direction proposed here", matching
+mitchellh's suggestion to recompute only when capacity changes).
+
+It failed on one required check, comms-policy-compliant. The repo-facts
+block quotes ghostty's policy: "All AI usage in any form must be
+disclosed, stating the tool used and the extent of the assistance,"
+and the plan comment contains no disclosure. The eval treats every
+package as AI-assisted, so a good plan whose comment breaks the repo's
+stated AI policy is not ready to post. My rubric reads it this way
+because the policy check is required and never balanced against how
+good the rest of the plan is.
 
 **Check rationale**
 
-[Quote one check from the `rubric.md` you uploaded to `tools/plan-check/`, exactly as it reads now.
-Then say why it reads that way — what you revised to get there, or what you rejected in
-favour of it.]
+| comms-policy-compliant | The repo-facts block's contribution policy and AI-use policy, read against the candidate plan comment. Treat every package as AI-assisted work. | Pass when the repo states no AI disclosure requirement for comments, or the comment satisfies what the policy requires. Fail when the policy requires disclosing AI usage (in any form, or in comments/issues specifically) and the plan comment contains no disclosure. A policy whose disclosure ask applies only to pull requests, or which states no disclosure ask for comments, does not require one in the plan comment. | required |
+
+Why it reads this way: my Unit 2 repro-check rubric had an
+ai-disclosure check that just said "if the policy requires disclosing
+AI use, the comments disclose it." That was too blunt for plan
+packages, because the repos here word their policies differently.
+ghostty (pkg-20) requires disclosure of AI use in any form, while fd
+(pkg-09) requires it only in pull requests and "states no disclosure
+ask for issue comments." A blunt version would fail pkg-09, a gold
+accept, for skipping a disclosure fd never asked for. So I made the
+check say where the requirement applies: it fails only when the policy
+covers comments, and the last sentence explicitly carves out PR-only
+policies. I also kept "Treat every package as AI-assisted work" so the
+grader can't pass a comment by assuming no AI was used.
+
+
 
 **Trade-offs**
 
-[Every check gives something up. Any one of these is a complete answer: a package whose
-result it changes, a canary you re-ran with `--only`, a case you accept it will miss, or a
-stated reason nothing changed elsewhere. "Nothing changed, and here is how I know" earns
-the point in full when the reason follows.]
+The PR-only carve-out in comms-policy-compliant is the trade-off. It is
+what lets pkg-09 pass (fd's policy asks for disclosure in pull
+requests, not issue comments), but it means my rubric accepts some
+comments with no disclosure at all. A case I accept it will miss: a
+repo whose policy is vague about scope ("disclose AI use in your
+contributions"). The grader has to decide whether a comment counts as
+a contribution, and my check doesn't settle that, so it could go
+either way between runs.
+
+Nothing else changed because of this: in the full run, the two
+thread-convention packages (pkg-04 and pkg-20) still both rejected,
+and pkg-03 (ripgrep, where the comment discloses AI use and says it is
+in the author's own words) still accepted.
 
 ---
 
