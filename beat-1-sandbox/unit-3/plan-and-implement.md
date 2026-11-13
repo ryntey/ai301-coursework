@@ -280,8 +280,7 @@ run written to eval-run.txt
 [pkg-20 (ghostty-org/ghostty#11261). My rubric decided reject; the gold
 label is reject, so they agree.
 
-This is the hardest reject in the set, because the plan itself is
-strong. My rubric passed it on diagnosis-grounded (the no-hyperlink
+My rubric passed it on diagnosis-grounded (the no-hyperlink
 control passes, which fits the stale-`prev` cause), scope-bounded
 (unconditional recompute and other cached pointers are explicitly out
 of scope), executable (one chosen approach: a page generation counter
@@ -320,7 +319,7 @@ grader can't pass a comment by assuming no AI was used.
 
 **Trade-offs**
 
-The PR-only carve-out in comms-policy-compliant is the trade-off. It is
+The PR-only carve-out in comms-policy-compliant is the trade-off. It's
 what lets pkg-09 pass (fd's policy asks for disclosure in pull
 requests, not issue comments), but it means my rubric accepts some
 comments with no disclosure at all. A case I accept it will miss: a
