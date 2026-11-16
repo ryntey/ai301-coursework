@@ -84,7 +84,7 @@ One bounded change: bring `.env.example`'s LLM block in line with
 Re-run my repro steps against the branch:
 
 - Step 2 again: `grep -c OPENROUTER .env.example` → before `0`,
-  expected after `4` (one comment line naming the key, one active key line, two commented settings).
+  expected after `3` (one comment line naming the key, one active key line, two commented settings).
 - Step 4 again (real code path): `cp .env.example .env`, then load
   `core.config.Settings()`. Before: `openrouter_api_key= ''`.
   Expected after: `openrouter_api_key= 'sk-or-your-key-here'`, with
