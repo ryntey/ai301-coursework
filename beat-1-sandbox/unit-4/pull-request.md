@@ -72,27 +72,6 @@ opening the PR. My original commit had deleted the blank line before
 never mentions. I restored the blank line and amended the commit, so the
 final diff is 5 lines added and 1 line changed, all of them planned.
 
-**Reflection**
-
-What the tool caught that I would have missed: two things I would not
-have noticed by reading my own description. First, a whitespace-only
-deletion in my diff. Second, a disagreement between my local plan.md and
-the plan I actually posted. Neither would have shown up in my before and
-after output, because both were about whether the PR matches the plan,
-not about whether the fix works.
-
-What I learned about "ready to submit": a correct fix is not enough. In
-the eval set, several packages had the right code and still had to be
-held: pkg-01 for an ignored checklist, pkg-20 for a missing AI
-disclosure, and pkg-12 for debris. Others were held for evidence that
-re-ran the wrong path (pkg-07, pkg-14). And honest limits are not
-failures: pkg-13 and pkg-16 are accepts because their deferred cases are
-written down.
-
-What I would do differently: run the precheck earlier, right after
-building the branch rather than right before opening the PR, and keep
-plan.md frozen as posted, putting every later correction in Deviations.
-
 ## Eval iterations
 
 Answer all four sections. Quote source text directly; paraphrase does not satisfy these
