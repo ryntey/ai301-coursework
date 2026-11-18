@@ -1,4 +1,4 @@
-# Contribution: [Issue Title]
+# Contribution: Rover : Forward to waypoint # when failsafe triggered(opens in new tab)
 
 Path: `beat-2-contribution/contribution-story.md`
 
@@ -8,13 +8,12 @@ format criteria grade exactly that. Your course repo link is the whole submissio
 files and no evidence uploads are part of Assignment 5.
 
 **Contribution Number:** [1]
-**Student:** [Student name]
-**GitHub Username:** [your GitHub username, exactly as it appears on your profile - no @, no
-profile URL. Your comments upstream are identified by this name.]
-**Issue:** [GitHub issue link]
+**Student:** Lauryn Allotey
+**GitHub Username:** ryntey
+**Issue:** (https://github.com/ArduPilot/ardupilot/issues/8503)
 **Pull Request:** [GitHub PR link, once opened]
 
-One repository, built across units 5 to 8, telling the whole story of your real
+One repository, built across units 9 to 12, telling the whole story of your real
 contribution. Fill it as you work, not at the end — the sections below ask for evidence that
 is far easier to write down as it happens than to reconstruct in the last weekend.
 
@@ -55,10 +54,9 @@ happened; these entries are the toolkit's own timeline.
 All four entries are graded. Keep every heading below, and fill each
 one in the week it belongs to.
 
-**Unit 5: [one line on the tool work]**
+**Unit 9: Turned my issue selector into a scout with specifically Python search queries and ranking filters based on recent activity within the comments of the repo**
 
-[2-4 sentences: what you built (the scout, your strategy), what broke
-or fell short, what changed because of it.]
+I installed the issue-scout skill, expanded my fit profile to name Python, small bug/docs/test work, and beginner-friendly projects, and wrote three `gh search issues` queries plus ranking filters that drop assigned or stale issues and sort by fewest comments. I did all of this based on my original fit profile, which covered my desire to find an issue that helps me brush up my Python skills after a year off. My first scan graded five issues, but two came from huge repos with hundreds of open issues, and one was a docs issue whose maintainer had already said they had a fix. I added a filter to drop issues with more than 10 comments and tightened my rubric's "already being worked on" check, then logged both changes in scan-notes.md.
 
 **Unit 6: [one line on the tool work]**
 
