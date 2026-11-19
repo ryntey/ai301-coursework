@@ -56,7 +56,7 @@ one in the week it belongs to.
 
 **Unit 9: Turned my issue selector into a scout with specifically Python search queries and ranking filters based on recent activity within the comments of the repo**
 
-I installed the issue-scout skill, expanded my fit profile to name Python, small bug/docs/test work, and beginner-friendly projects, and wrote three `gh search issues` queries plus ranking filters that drop assigned or stale issues and sort by fewest comments. I did all of this based on my original fit profile, which covered my desire to find an issue that helps me brush up my Python skills after a year off. My first scan graded five issues; I checked them against the live pages and they held up, so I changed nothing, then logged both changes in scan-notes.md.
+I installed the issue-scout skill, expanded my fit profile to name Python, small bug/docs/test work, and beginner-friendly projects, and wrote three `gh search issues` queries plus ranking filters that drop assigned or stale issues and sort by fewest comments. I did all of this based on my original fit profile, which covered my desire to find an issue that helps me brush up my Python skills after a year off. My first scan graded five issues; I checked them against the live pages and they held up, so I changed nothing, then logged changes in scan-notes.md.
 
 **Unit 6: [one line on the tool work]**
 
