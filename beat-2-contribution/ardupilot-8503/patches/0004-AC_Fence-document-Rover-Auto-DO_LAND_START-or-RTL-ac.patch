@@ -1,0 +1,27 @@
+From 79a35b38c2b55a8ddc080c7ea2db5d60d77c9a8b Mon Sep 17 00:00:00 2001
+From: ryntey <ryntey@users.noreply.github.com>
+Date: Thu, 19 Nov 2026 08:37:28 +0000
+Subject: [PATCH 4/4] AC_Fence: document Rover Auto DO_LAND_START or RTL action
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_013iLPMYs9qdqQrZgjMhQVLf
+---
+ libraries/AC_Fence/AC_Fence.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libraries/AC_Fence/AC_Fence.cpp b/libraries/AC_Fence/AC_Fence.cpp
+index 173f279..95bb185 100644
+--- a/libraries/AC_Fence/AC_Fence.cpp
++++ b/libraries/AC_Fence/AC_Fence.cpp
+@@ -68,7 +68,7 @@ const AP_Param::GroupInfo AC_Fence::var_info[] = {
+     // @DisplayName: Fence Action
+     // @Description: What action should be taken when fence is breached
+     // @Values{Copter}: 0:Report Only,1:RTL or Land,2:Always Land,3:SmartRTL or RTL or Land,4:Brake or Land,5:SmartRTL or Land
+-    // @Values{Rover}: 0:Report Only,1:RTL or Hold,2:Hold,3:SmartRTL or RTL or Hold,4:SmartRTL or Hold,5:Terminate,6:Loiter or Hold
++    // @Values{Rover}: 0:Report Only,1:RTL or Hold,2:Hold,3:SmartRTL or RTL or Hold,4:SmartRTL or Hold,5:Terminate,6:Loiter or Hold,7:Auto DO_LAND_START or RTL or Hold
+     // @Values{Plane}: 0:Report Only,1:RTL,6:Guided,7:GuidedThrottlePass,8:AUTOLAND if possible else RTL
+     // @Values: 0:Report Only,1:RTL or Land
+     // @User: Standard
+-- 
+2.43.0
+

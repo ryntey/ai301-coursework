@@ -1,0 +1,16 @@
+>>>> RUNNING STEP: test.Rover.FailsafeDoLandStart at Thu Nov 19 08:27:00 2026
+AT-0001.2: ---------- Failsafe jumps to DO_LAND_START in the mission  ----------
+AT-0004.9: AP: Mission: 1 WP
+AT-0006.2: AP: Reached waypoint #1
+AT-0006.2: AP: Mission: 2 WP
+AT-0006.5: AP: Radio Failsafe
+AT-0007.0: AP: Reached waypoint #2
+AT-0007.0: AP: Mission: 3 WP
+AT-0007.9: AP: Reached waypoint #3
+AT-0007.9: AP: Mission: 4 LandStart
+AT-0007.9: AP: Mission: 5 WP
+AT-0007.9: AP: Skipping invalid cmd #189
+AT-0008.3: Exception caught: Failed to receive text: landing sequence start
+AT-0008.4: AP: Radio Failsafe Cleared
+AT-0009.3: FAILED: "FailsafeDoLandStart (Test FS_ACTION 7: jump to the mission's DO_LAND_START, else RTL)": AutoTestTimeoutException('Failed to receive text: landing sequence start') (see /home/user/ardupilot/buildlogs/Rover-FailsafeDoLandStart.txt)
+>>>> FAILED STEP: test.Rover.FailsafeDoLandStart at Thu Nov 19 08:27:09 2026

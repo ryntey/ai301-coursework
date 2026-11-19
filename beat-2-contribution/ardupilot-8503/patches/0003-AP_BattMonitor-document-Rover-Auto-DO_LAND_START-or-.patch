@@ -1,0 +1,37 @@
+From 7e5b3d2e346067708177e28a483e2e627f08e4cd Mon Sep 17 00:00:00 2001
+From: ryntey <ryntey@users.noreply.github.com>
+Date: Thu, 19 Nov 2026 08:37:28 +0000
+Subject: [PATCH 3/4] AP_BattMonitor: document Rover Auto DO_LAND_START or RTL
+ action
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_013iLPMYs9qdqQrZgjMhQVLf
+---
+ libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp b/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp
+index aa0d054..9a612a7 100644
+--- a/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp
++++ b/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp
+@@ -146,7 +146,7 @@ const AP_Param::GroupInfo AP_BattMonitor_Params::var_info[] = {
+     // @Values{Copter}: 0:Warn only,1:Land,2:RTL,3:SmartRTL or RTL,4:SmartRTL or Land,5:Terminate,6:Auto DO_LAND_START/DO_RETURN_PATH_START or RTL,7:Brake or Land
+     // @Values{Plane}: 0:Warn only,1:RTL,2:Land,3:Terminate,4:QLand,5:Parachute release,6:Loiter to QLand,7:AUTOLAND or RTL
+     // @Values{Sub}: 0:Warn only,2:Disarm,3:Enter surface mode
+-    // @Values{Rover}: 0:Warn only,1:RTL,2:Hold,3:SmartRTL,4:SmartRTL or Hold,5:Terminate,6:Loiter or Hold
++    // @Values{Rover}: 0:Warn only,1:RTL,2:Hold,3:SmartRTL,4:SmartRTL or Hold,5:Terminate,6:Loiter or Hold,7:Auto DO_LAND_START or RTL
+     // @Values{Tracker}: 0:Warn only
+     // @Values{Blimp}: 0:Warn only,1:Land
+     // @User: Standard
+@@ -158,7 +158,7 @@ const AP_Param::GroupInfo AP_BattMonitor_Params::var_info[] = {
+     // @Values{Copter}: 0:Warn only,1:Land,2:RTL,3:SmartRTL or RTL,4:SmartRTL or Land,5:Terminate,6:Auto DO_LAND_START/DO_RETURN_PATH_START or RTL,7:Brake or Land
+     // @Values{Plane}: 0:Warn only,1:RTL,2:Land,3:Terminate,4:QLand,5:Parachute,6:Loiter to QLand,7:AUTOLAND or RTL
+     // @Values{Sub}: 0:Warn only,2:Disarm,3:Enter surface mode
+-    // @Values{Rover}: 0:Warn only,1:RTL,2:Hold,3:SmartRTL,4:SmartRTL or Hold,5:Terminate,6:Loiter or Hold
++    // @Values{Rover}: 0:Warn only,1:RTL,2:Hold,3:SmartRTL,4:SmartRTL or Hold,5:Terminate,6:Loiter or Hold,7:Auto DO_LAND_START or RTL
+     // @Values{Tracker}: 0:Warn only
+     // @Values{Blimp}: 0:Warn only,1:Land
+     // @User: Standard
+-- 
+2.43.0
+

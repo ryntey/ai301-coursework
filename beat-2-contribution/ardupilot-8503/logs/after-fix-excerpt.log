@@ -1,0 +1,29 @@
+>>>> RUNNING STEP: test.Rover.FailsafeDoLandStart at Thu Nov 19 08:31:08 2026
+AT-0001.0: ---------- Failsafe jumps to DO_LAND_START in the mission  ----------
+AT-0004.7: AP: Mission: 1 WP
+AT-0006.0: AP: Reached waypoint #1
+AT-0006.0: AP: Mission: 2 WP
+AT-0006.3: AP: Radio Failsafe
+AT-0006.3: AP: Mission: 4 LandStart
+AT-0006.3: AP: Mission: 5 WP
+AT-0006.3: AP: Landing sequence start
+AT-0006.3: AP: Radio Failsafe Cleared
+AT-0008.9: AP: Reached waypoint #5
+AT-0008.9: AP: Mission: 6 WP
+AT-0009.1: ---------- Failsafe from a non-Auto mode resumes at DO_LAND_START even with MIS_RESTART=1  ----------
+AT-0009.6: AP: Radio Failsafe
+AT-0009.6: AP: Mission: 4 LandStart
+AT-0009.6: AP: Mission: 5 WP
+AT-0009.6: AP: Landing sequence start
+AT-0009.6: AP: Mission: 4 LandStart
+AT-0009.6: AP: Mission: 5 WP
+AT-0009.6: AP: Radio Failsafe Cleared
+AT-0009.7: ---------- Failsafe falls back to RTL without DO_LAND_START  ----------
+AT-0010.0: AP: Mission: 1 WP
+AT-0011.4: AP: Reached waypoint #1
+AT-0011.4: AP: Mission: 2 WP
+AT-0011.7: AP: Radio Failsafe
+AT-0011.7: AP: Unable to start landing sequence
+AT-0011.7: AP: Radio Failsafe Cleared
+AT-0012.0: PASSED: "FailsafeDoLandStart (Test FS_ACTION 7: jump to the mission's DO_LAND_START, else RTL)"
+>>>> PASSED STEP: test.Rover.FailsafeDoLandStart at Thu Nov 19 08:31:20 2026

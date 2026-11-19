@@ -1,0 +1,101 @@
+From 99e074899a1a4cbc3b105f30bc1660c6f260364d Mon Sep 17 00:00:00 2001
+From: ryntey <ryntey@users.noreply.github.com>
+Date: Thu, 19 Nov 2026 08:37:28 +0000
+Subject: [PATCH 1/4] autotest: add Rover FailsafeDoLandStart test
+
+Checks that FS_ACTION=7 jumps an Auto mission to its DO_LAND_START,
+that it does so from a non-Auto mode with MIS_RESTART=1, and that it
+falls back to RTL when the mission has no DO_LAND_START.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_013iLPMYs9qdqQrZgjMhQVLf
+---
+ Tools/autotest/rover.py | 65 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 65 insertions(+)
+
+diff --git a/Tools/autotest/rover.py b/Tools/autotest/rover.py
+index a173810..9535737 100644
+--- a/Tools/autotest/rover.py
++++ b/Tools/autotest/rover.py
+@@ -213,6 +213,70 @@ class AutoTestRover(vehicle_test_suite.TestSuite):
+         self.disarm_vehicle()
+         self.progress("Loiter or Hold as throttle failsafe OK")
+ 
++    def FailsafeDoLandStart(self):
++        '''Test FS_ACTION 7: jump to the mission's DO_LAND_START, else RTL'''
++        self.set_parameters({
++            "FS_THR_ENABLE": 1,
++            "FS_ACTION": 7,
++        })
++
++        self.start_subtest("Failsafe jumps to DO_LAND_START in the mission")
++        self.upload_simple_relhome_mission([
++            (mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 40, 0, 0),    # 1
++            (mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 80, 0, 0),    # 2
++            (mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 120, 0, 0),   # 3
++            (mavutil.mavlink.MAV_CMD_DO_LAND_START, 0, 30, 0),   # 4
++            (mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 30, 0),    # 5
++            (mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0),     # 6
++        ])
++        self.change_mode("MANUAL")
++        self.wait_ready_to_arm()
++        self.arm_vehicle()
++        self.change_mode("AUTO")
++        self.wait_current_waypoint(2)
++
++        self.context_push()
++        self.context_collect('STATUSTEXT')
++        self.set_parameter("SIM_RC_FAIL", 1)  # no-pulses failsafe
++        self.wait_statustext("Landing sequence start", check_context=True)
++        self.context_pop()
++        self.wait_current_waypoint(5, timeout=10)
++        self.assert_mode("AUTO")
++        self.wait_current_waypoint(6)
++
++        self.set_parameter("SIM_RC_FAIL", 0)
++        self.change_mode("MANUAL")
++        self.disarm_vehicle()
++
++        self.start_subtest("Failsafe from a non-Auto mode resumes at DO_LAND_START even with MIS_RESTART=1")
++        self.set_parameter("MIS_RESTART", 1)
++        self.change_mode("MANUAL")
++        self.wait_ready_to_arm()
++        self.arm_vehicle()
++        self.set_parameter("SIM_RC_FAIL", 1)
++        self.wait_mode("AUTO", timeout=10)
++        self.wait_current_waypoint(5, timeout=10)
++        self.set_parameter("SIM_RC_FAIL", 0)
++        self.change_mode("MANUAL")
++        self.disarm_vehicle()
++        self.set_parameter("MIS_RESTART", 0)
++
++        self.start_subtest("Failsafe falls back to RTL without DO_LAND_START")
++        self.upload_simple_relhome_mission([
++            (mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 40, 0, 0),
++            (mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 80, 0, 0),
++            (mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 120, 0, 0),
++        ])
++        self.wait_ready_to_arm()
++        self.arm_vehicle()
++        self.change_mode("AUTO")
++        self.wait_current_waypoint(2)
++        self.set_parameter("SIM_RC_FAIL", 1)
++        self.wait_mode("RTL", timeout=10)
++        self.set_parameter("SIM_RC_FAIL", 0)
++        self.change_mode("MANUAL")
++        self.disarm_vehicle()
++
+     def CrashCheck(self):
+         """Test crash detection with FS_CRASH_CHECK 1 (hold) and 2 (hold+disarm)"""
+         self.set_parameters({
+@@ -8652,6 +8716,7 @@ return update()
+             self.SafetySwitch,
+             self.EnterModeOnSafetySwitch,
+             self.ThrottleFailsafe,
++            self.FailsafeDoLandStart,
+             self.CrashCheck,
+             self.DriveEachFrame,
+             self.AP_ROVER_AUTO_ARM_ONCE_ENABLED,
+-- 
+2.43.0
+

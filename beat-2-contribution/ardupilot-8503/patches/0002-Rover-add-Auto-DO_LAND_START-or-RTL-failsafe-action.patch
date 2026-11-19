@@ -1,0 +1,211 @@
+From dd7bdd969d27001715770cbde2bd674e560b9eec Mon Sep 17 00:00:00 2001
+From: ryntey <ryntey@users.noreply.github.com>
+Date: Thu, 19 Nov 2026 08:37:28 +0000
+Subject: [PATCH 2/4] Rover: add Auto DO_LAND_START or RTL failsafe action
+
+Adds FailsafeAction 7 for FS_ACTION, the battery failsafe actions and
+FENCE_ACTION. On failsafe the vehicle jumps to the nearest DO_LAND_START
+in the mission and continues in Auto, so a user-planned return route is
+driven. If there is no DO_LAND_START it falls back to RTL, then Hold.
+
+Auto now accepts DO_LAND_START as a marker instead of skipping it as an
+invalid command.
+
+Fixes #8503
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_013iLPMYs9qdqQrZgjMhQVLf
+---
+ Rover/Parameters.cpp |  2 +-
+ Rover/Rover.cpp      |  2 +-
+ Rover/Rover.h        |  2 ++
+ Rover/failsafe.cpp   | 16 ++++++++++++++++
+ Rover/fence.cpp      |  8 ++++++++
+ Rover/mode.h         |  3 +++
+ Rover/mode_auto.cpp  | 43 +++++++++++++++++++++++++++++++++++++++++++
+ 7 files changed, 74 insertions(+), 2 deletions(-)
+
+diff --git a/Rover/Parameters.cpp b/Rover/Parameters.cpp
+index 57c128c..e17b2d8 100644
+--- a/Rover/Parameters.cpp
++++ b/Rover/Parameters.cpp
+@@ -89,7 +89,7 @@ const AP_Param::Info Rover::var_info[] = {
+     // @Param: FS_ACTION
+     // @DisplayName: Failsafe Action
+     // @Description: What to do on a failsafe event
+-    // @Values: 0:Nothing,1:RTL,2:Hold,3:SmartRTL or RTL,4:SmartRTL or Hold,5:Terminate,6:Loiter or Hold
++    // @Values: 0:Nothing,1:RTL,2:Hold,3:SmartRTL or RTL,4:SmartRTL or Hold,5:Terminate,6:Loiter or Hold,7:Auto DO_LAND_START or RTL
+     // @User: Standard
+     GSCALAR(fs_action,    "FS_ACTION",     (int8_t)FailsafeAction::Hold),
+ 
+diff --git a/Rover/Rover.cpp b/Rover/Rover.cpp
+index f668b4c..4b6304b 100644
+--- a/Rover/Rover.cpp
++++ b/Rover/Rover.cpp
+@@ -144,7 +144,7 @@ void Rover::get_scheduler_tasks(const AP_Scheduler::Task *&tasks,
+     log_bit = MASK_LOG_PM;
+ }
+ 
+-constexpr int8_t Rover::_failsafe_priorities[7];
++constexpr int8_t Rover::_failsafe_priorities[8];
+ 
+ Rover::Rover(void) :
+     AP_Vehicle(),
+diff --git a/Rover/Rover.h b/Rover/Rover.h
+index d13021c..bdc9955 100644
+--- a/Rover/Rover.h
++++ b/Rover/Rover.h
+@@ -409,6 +409,7 @@ private:
+         SmartRTL_Hold = 4,
+         Terminate     = 5,
+         Loiter_Hold   = 6,
++        Auto_DoLandStart_RTL = 7,
+     };
+ 
+     enum class Failsafe_Options : uint32_t {
+@@ -419,6 +420,7 @@ private:
+                                                        (int8_t)FailsafeAction::Terminate,
+                                                        (int8_t)FailsafeAction::Hold,
+                                                        (int8_t)FailsafeAction::RTL,
++                                                       (int8_t)FailsafeAction::Auto_DoLandStart_RTL,
+                                                        (int8_t)FailsafeAction::SmartRTL_Hold,
+                                                        (int8_t)FailsafeAction::SmartRTL,
+                                                        (int8_t)FailsafeAction::None,
+diff --git a/Rover/failsafe.cpp b/Rover/failsafe.cpp
+index 2d4964d..b05c3bd 100644
+--- a/Rover/failsafe.cpp
++++ b/Rover/failsafe.cpp
+@@ -110,6 +110,14 @@ void Rover::failsafe_trigger(uint8_t failsafe_type, const char* type_str, bool o
+                     set_mode(mode_hold, ModeReason::FAILSAFE);
+                 }
+                 break;
++            case FailsafeAction::Auto_DoLandStart_RTL:
++                if (mode_auto.jump_to_landing_sequence(ModeReason::FAILSAFE)) {
++                    break;
++                }
++                if (!set_mode(mode_rtl, ModeReason::FAILSAFE)) {
++                    set_mode(mode_hold, ModeReason::FAILSAFE);
++                }
++                break;
+             case FailsafeAction::Terminate:
+                 arming.disarm(AP_Arming::Method::FAILSAFE_ACTION_TERMINATE);
+                 break;
+@@ -146,6 +154,14 @@ void Rover::handle_battery_failsafe(const char* type_str, const int8_t action)
+                     set_mode(mode_hold, ModeReason::BATTERY_FAILSAFE);
+                 }
+                 break;
++            case FailsafeAction::Auto_DoLandStart_RTL:
++                if (mode_auto.jump_to_landing_sequence(ModeReason::BATTERY_FAILSAFE)) {
++                    break;
++                }
++                if (!set_mode(mode_rtl, ModeReason::BATTERY_FAILSAFE)) {
++                    set_mode(mode_hold, ModeReason::BATTERY_FAILSAFE);
++                }
++                break;
+             case FailsafeAction::Terminate:
+ #if AP_ROVER_ADVANCED_FAILSAFE_ENABLED
+                 char battery_type_str[17];
+diff --git a/Rover/fence.cpp b/Rover/fence.cpp
+index 0c3e225..2a3a018 100644
+--- a/Rover/fence.cpp
++++ b/Rover/fence.cpp
+@@ -72,6 +72,14 @@ void Rover::fence_check()
+                         set_mode(mode_hold, ModeReason::FENCE_BREACHED);
+                     }
+                     break;
++                case FailsafeAction::Auto_DoLandStart_RTL:
++                    if (mode_auto.jump_to_landing_sequence(ModeReason::FENCE_BREACHED)) {
++                        break;
++                    }
++                    if (!set_mode(mode_rtl, ModeReason::FENCE_BREACHED)) {
++                        set_mode(mode_hold, ModeReason::FENCE_BREACHED);
++                    }
++                    break;
+                 case FailsafeAction::Terminate:
+                     arming.disarm(AP_Arming::Method::FENCEBREACH);
+                     break;
+diff --git a/Rover/mode.h b/Rover/mode.h
+index cc3ab92..bfc0eb2 100644
+--- a/Rover/mode.h
++++ b/Rover/mode.h
+@@ -285,6 +285,9 @@ public:
+     // start RTL (within auto)
+     void start_RTL();
+ 
++    // jump to the nearest DO_LAND_START in the mission and run the mission from there in Auto
++    bool jump_to_landing_sequence(ModeReason reason);
++
+     // lua accessors for nav script time support
+     bool nav_script_time(uint16_t &id, uint8_t &cmd, float &arg1, float &arg2, int16_t &arg3, int16_t &arg4);
+     void nav_script_time_done(uint16_t id);
+diff --git a/Rover/mode_auto.cpp b/Rover/mode_auto.cpp
+index e819e71..f9340dd 100644
+--- a/Rover/mode_auto.cpp
++++ b/Rover/mode_auto.cpp
+@@ -34,6 +34,44 @@ bool ModeAuto::_enter()
+     return true;
+ }
+ 
++// jump to the nearest DO_LAND_START in the mission and run the mission from there in Auto
++// returns false if there is no DO_LAND_START in the mission or the switch to Auto fails
++bool ModeAuto::jump_to_landing_sequence(ModeReason reason)
++{
++    // already running the DO_LAND_START sequence in Auto, so keep going
++    if ((rover.control_mode == this) &&
++        (mission.state() == AP_Mission::MISSION_RUNNING) &&
++        mission.get_in_landing_sequence_flag()) {
++        return true;
++    }
++
++    Location loc;
++    if (!ahrs.get_location(loc)) {
++        return false;
++    }
++
++    if (!mission.jump_to_landing_sequence(loc)) {
++        return false;
++    }
++
++    // entering Auto (or Auto still waiting to start) calls start_or_resume(), which
++    // must resume at the DO_LAND_START rather than restart if MIS_RESTART is set
++    const bool will_start_mission = (rover.control_mode != this) || waiting_to_start;
++    if (will_start_mission) {
++        mission.set_force_resume(true);
++    }
++
++    if (rover.set_mode(*this, reason)) {
++        return true;
++    }
++
++    // mode change failed, revert force resume flag
++    if (will_start_mission) {
++        mission.set_force_resume(false);
++    }
++    return false;
++}
++
+ void ModeAuto::_exit()
+ {
+     // stop running the mission
+@@ -593,6 +631,10 @@ bool ModeAuto::start_command(const AP_Mission::Mission_Command& cmd)
+         do_guided_limits(cmd);
+         break;
+ 
++    case MAV_CMD_DO_LAND_START:
++        // marker used by failsafes to find where to jump to, nothing to do
++        break;
++
+     default:
+         // return false for unhandled commands
+         return false;
+@@ -707,6 +749,7 @@ bool ModeAuto::verify_command(const AP_Mission::Mission_Command& cmd)
+     case MAV_CMD_DO_SET_REVERSE:
+     case MAV_CMD_DO_FENCE_ENABLE:
+     case MAV_CMD_DO_GUIDED_LIMITS:
++    case MAV_CMD_DO_LAND_START:
+         return true;
+ 
+     default:
+-- 
+2.43.0
+
