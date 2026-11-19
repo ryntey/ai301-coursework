@@ -27,12 +27,13 @@ as a deleted answer.
 the unused `[Tool name]` entry stub, its copy-me sentence, and the prompt sentences under
 each header. A leftover bracketed prompt reads as unfilled.
 
-**Student:** [Student name]
+**Student:** Lauryn Allotey
 
 ## Featured Tools
 
-Three or four tools, presented in depth. Open with a few sentences
-on why you chose these.
+Issue-Scout, plan-check, repro-check
+
+I picked these tools because the initial issue select set the stage for everything else, and the upgrade was the biggest way for me to showcase my own improvement and comfortability in working. Repro-check, in that it helped me most clearly place myself in the middle of an open source project. Pr-Precheck was similar, but coming from the previous assignments, the insight was particulatly helpgul. Plan-check was one of the most intricate in terms of creating a rubric based on things that feel abstract or so innate that you don't give it as much thought as the assignment asked; specifically,  guiding your tool based on how you would say something, making sure not to overpromise, or doing exactly as you say.
 
 Full credit asks the featured set to show real change: **at least two** of your featured
 entries should show a tool that visibly moved through use. An honest entry for a tool that
@@ -43,11 +44,10 @@ Each tool's honest limit is not written here. It goes in the tool-limits list at
 bottom of this page, one line per featured tool, so that the limits sit together and can be
 read as a set.
 
-[Why these tools, in your own words.]
-
+ 
 Copy the entry shape below once per featured tool and fill it there.
 
-**[Tool name]**
+**Issue-Scout**
 
 **What it is, and the judgment hole I wrote:** [what the tool does,
 and the part of it that is your judgment: the rubric, strategy,
@@ -66,10 +66,9 @@ pasted transcript.]
 
 ## Inventory
 
-One line each for the rest of the toolkit: what it is and where it
-stands (one bullet per tool; a compact sentence or two is fine).
+- Pr-precheck: It is the tool that, it passed its first run .
 
-- [Tool name: one line.]
+
 
 ## The Arc
 
