@@ -56,7 +56,7 @@ one in the week it belongs to.
 
 **Unit 9: Turned my issue selector into a scout with specifically Python search queries and ranking filters based on recent activity within the comments of the repo**
 
-I installed the issue-scout skill, expanded my fit profile to name Python, small bug/docs/test work, and beginner-friendly projects, and wrote three `gh search issues` queries plus ranking filters that drop assigned or stale issues and sort by fewest comments. I did all of this based on my original fit profile, which covered my desire to find an issue that helps me brush up my Python skills after a year off. My first scan graded five issues; I checked them against the live pages and they held up, so I changed nothing, then logged changes in scan-notes.md.
+I installed the issue-scout skill, expanded my fit profile to name Python, small bug/docs/test work, and beginner-friendly projects, and wrote three `gh search issues` queries plus ranking filters that drop assigned or stale issues and sort by fewest comments. I did all of this based on my original fit profile, which covered my desire to find an issue that helps me brush up my Python skills after a year off. My first scan graded five issues; I checked them against the live pages and they held up for the most part, but when running with claude there was the suggestion of a few changes to clear up confusion. I looked over and approved this, and changes were logged in scan-notes.md.
 
 **Unit 6: [one line on the tool work]**
 
@@ -89,6 +89,7 @@ you it held up. **Record the link to your claim comment in this section too.**
 Not claimed yet? Write `claim pending` and today's date where the link goes,
 and add the link the moment your claim lands.]
 
+I chose this issue based on what my issue-scout deemed appropriate. 
 **Toolkit**
 
 - Tool: issue-scout (your scout: your search strategy, your rubric),
@@ -209,7 +210,7 @@ observable named is not a strategy.]
 [A running log, added to as you work. Date each entry. What you
 built, decisions you made when you made them, wrong turns included.]
 
-**[Date]**
+Issue-Scout: 11/19/2026
 
 [Entry]
 
