@@ -27,6 +27,9 @@ as a deleted answer.
 the unused `[Tool name]` entry stub, its copy-me sentence, and the prompt sentences under
 each header. A leftover bracketed prompt reads as unfilled.
 
+
+
+
 **Student:** Lauryn Allotey
 
 ## Featured Tools
@@ -50,8 +53,7 @@ Copy the entry shape below once per featured tool and fill it there.
 **Issue-Scout**
 
 **What it is, and the judgment hole I wrote:** [what the tool does,
-and the part of it that is your judgment: the rubric, strategy,
-guide, manifest, or playbook you wrote.]
+and the part of it that is your judgment: the rubric 
 
 **How it evolved, dated:** [the changes that made it yours, each
 with its date and the friction that drove it; your weekly Toolkit
@@ -66,7 +68,7 @@ pasted transcript.]
 
 ## Inventory
 
-- Pr-precheck: It is the tool that, it passed its first run .
+- Pr-precheck: It is the tool that, it passed its first run and didn't require much tweaking..
 
 
 
@@ -102,10 +104,7 @@ Copy the beat shape above for as many beats as your term had.
 
 ## Limitations and What's Next
 
-What the toolkit as a whole still does not do, and what you would
-build or change next. Write this section last; it will be better
-after the rest.
-
+I think each 
 [The honest limits, and what comes next, in your own sentences.]
 
 **Tool limits.** One line per featured tool, in the same order as the entries above, naming
@@ -114,4 +113,4 @@ where that tool still stops or what it still gets wrong. A small honest limit is
 its label rather than deleting the line.
 
 issue-scout: [where this tool still stops, in plain words, or the word none]
-[tool name]: [where this tool still stops, in plain words, or the word none]
+repro-check: could be better in saying exactly how it runs on vomputer[where this tool still stops, in plain words, or the word none]
