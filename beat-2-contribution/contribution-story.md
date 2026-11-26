@@ -64,15 +64,20 @@ I installed the issue-scout skill, expanded my fit profile to name Python, small
 fell short, and what changed because of it. "Nothing broke" counts when
 it is true - say how you know.]
 
+I used repro-check as it was on my computer. to check my reproduction on my computer. I
+
 **Unit 7: Plan Check
 
 [2-4 sentences: the ship-gate and your gate manifest. What it produced
 on your real branch, what fought you, what changed because of it.]
 
+I kept that plan-check tool as it was originally. 
+
 **Unit 8: Pr-precheck
 
 [2-4 sentences: the PR-monitor and your playbook. What it read, what it
 drafted, what you did with the draft.]
+
 
 ---
 
@@ -89,7 +94,10 @@ you it held up. **Record the link to your claim comment in this section too.**
 Not claimed yet? Write `claim pending` and today's date where the link goes,
 and add the link the moment your claim lands.]
 
-I chose this issue based on what my issue-scout deemed appropriate. 
+I chose this issue based on what my issue-scout deemed appropriate. I specifically curated my issue-scout on my scope of being a senior computer science major and needing to be eased into things as I had taken a year off, looking specifically for a Python issue as it is my strongest language. Issue scout. I think I may have ultimately trusted it a bit too much, as I don't know that it was completely aligned with all I wanted. My desire was to remain, but I the issue ended up being dead without much activity, ran pretty slowly on Mac specificlly (which I have)
+
+https://github.com/ArduPilot/ardupilot/issues/8503#issuecomment-7168305085 
+
 **Toolkit**
 
 - Tool: issue-scout (your scout: your search strategy, your rubric),
@@ -131,16 +139,38 @@ I chose this issue based on what my issue-scout deemed appropriate.
 
 **Environment Setup**
 
-[What a stranger would need to stand this up: your operating system,
-the relevant versions (language, runtime, package manager, the project
-itself), and how you set the project up. Then the challenges you faced
-and how you solved them, or that none came up.]
+Environment
+ProductName: macOS
+ProductVersion: 15.3.1
+BuildVersion: 24D70
+arm64
+Python 3.10.18, MAVProxy 1.8.75
+ArduPilot master at dc9c4e2 Sat Nov 21 09:03:57 2026 +1100, Rover SITL
+
+I felt that the tool ran somewhat awkwardly on my computer. I had trouble deciphering what everything I was looking at meant on my own, and the project felt much bigger than me at first, so I used Claude to help me figure out all that was being said so that I could move forward. 
+
 
 **Steps to Reproduce**
 
-1. [Step 1]
-2. [Step 2]
-3. [Observed result]
+Steps
+sim_vehicle.py -v Rover --console --map -w
+At the MAVProxy prompt:
+wp load rover-8503.txt
+param set FS_GCS_ENABLE 1
+param set FS_TIMEOUT 5
+param set FS_ACTION 2
+arm throttle
+mode auto
+After the rover passes WP 2, set heartbeat 0 to stop GCS heartbeats.
+Wait ~10 s, then set heartbeat 1.
+Repeat steps 2–4 with param set FS_ACTION 1 (switching back to mode auto first; the failsafe does not act while already in HOLD unless FS_OPTIONS bit 0 is set).
+
+3. Observed
+FS_ACTION=2: mode changed AUTO → HOLD.
+FS_ACTION=1: mode changed AUTO → RTL and the rover drove back towards home.
+In both cases the rover stopped following the mission before item 5 (DO_LAND_START).
+The FS_ACTION values on this commit are 0:Nothing,1:RTL,2:Hold,3:SmartRTL or RTL,4:SmartRTL or Hold,5:Terminate,6:Loiter or Hold (Rover/Parameters.cpp). None of them continues to a mission item.
+
 
 **Reproduction Evidence**
 
@@ -222,8 +252,7 @@ Deviations recorded during the build:
   check, and entering Auto then restarted the mission from the beginning.
   Fixed by setting the flag whenever Auto is about to start the mission
   (not in Auto yet, or Auto still waiting to start).
-- Split into four commits, one per subsystem, because ArduPilot CI
-  rejects commits that touch more than one subsystem.
+- I had 
 
 [Record deviations here as they happen: what changed mid-build and
 why. A recorded deviation is honest work; silent drift is not.]
@@ -302,7 +331,16 @@ Issue-Scout: 11/19/2026
 - Next: fork, `git am` the patches, push, check CI in the fork's Actions
   tab, review the diff line by line, post the claim comment, open the PR.
 
-**[Date]**
+I asked Claude for help with the steps, and I understood and thought it had gone well and was able to give a presentation I felt confident in, but I realized when I went to create this document, it kind of took over and ran without me seeing the intricacies I needed to answer these questions. I had no idea how to move forward at first, but I eventually settled on needing to start over. 
+
+**2026-11-24*: 
+
+
+**2026-11-25: Proper reproduction, build, and fix on my own computer. 
+
+Repro-Check
+Plan-Check
+Pr-Precheck
 
 [Entry]
 
@@ -326,8 +364,8 @@ requires.
 
 **Maintainer Feedback:**
 
-- [Date]: None Yet
-- [Date]: Continued working 
+- [11/25]: None Yet
+- [11/25]: Continued working 
 
 **Status:** Awaiting review
 
@@ -336,7 +374,7 @@ requires.
 - Tool:
 - What it produced:
 - Difficulties:
-- What changed:
+- What changed: 
 
 ---
 
@@ -344,14 +382,15 @@ requires.
 
 **Technical Skills Gained**
 
-I was completely unfamiliar with the idea of open-source contributions prior to this class, let alone the process. I also had never created a tool made for search that I didn't manually plug a database or file into. This semester and class have expanded my understanding of the 
+I was completely unfamiliar with the idea of open-source contributions prior to this class, let alone the process. I also had never created a tool made for search that I didn't manually plug a database or file into. This semester and class have expanded my understanding of the process and I feel 10x more capable than I did when starting, even if not 100%.
+
 **Challenges Overcome**
 
-ArduPilot builds on Linux, and is prett slow to set up on Mac specifically it's faster on Windows.
+ArduPilot builds on Linux, and is pretty slow to set up on Mac. I also ran out of storage space on my computer right in the middle of testing. I had to stop, delete miscellaneous items, and then continue. That was really frustrating as I was already having some difficulty with the project.
 
 **What I'd Do Differently Next Time**
 
-Reaching out for help and starting earlier. I got really caught up in my lack of understanding in the first few weeks and found it difficult to get back on m feet from there. During the middle of the semester, I spoke to my professor to open a line of communication about where I was struggling and figure out a path forward and I think that's where things started shifting for the better for me. I'd also use Claude to help me break down the steps from assignment one. Those two things reframed the grip I had on the material, especially with the very tools I ended up using for this contribution, and I would implement them sooner. 
+For the specific issue, I may have went in a different direction. I was glad to challenge myself, but I think was far enough away for what my intention was that I believe I should've second guessed issue scout a bit more before going full steam ahead. In a general sense, I would prioritize reaching out for help and starting earlier. I got really caught up in my lack of understanding in the first few weeks and found it difficult to get back on m feet from there. During the middle of the semester, I spoke to my professor to open a line of communication about where I was struggling and figure out a path forward and I think that's where things started shifting for the better for me. I'd also use Claude to help me break down the steps from assignment one. Those two things reframed the grip I had on the material, especially with the very tools I ended up using for this contribution, and I would implement them sooner. 
 
 ---
 
